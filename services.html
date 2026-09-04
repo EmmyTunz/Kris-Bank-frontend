@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services — Kris Bank</title>
+<meta name="description" content="Savings, current accounts, fixed deposits, private advisory, debit cards and transfers from Kris Bank, Victoria Island.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo">Kris Bank <span class="mark">KB</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html" class="active">Services</a></li>
+      <li><a href="rates.html">Rates</a></li>
+      <li><a href="contact.html">Branch &amp; Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="dashboard.html" class="btn btn-ghost">My account</a>
+      <button class="btn btn-ghost" id="openLogin">Log in</button>
+      <a href="contact.html" class="btn btn-primary">Open an account</a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">MENU</button>
+  </nav>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="kicker" style="margin-bottom:16px;">What we offer</p>
+      <h1>Six products, each built to do one job well.</h1>
+      <p>We keep the product list short on purpose — every account here is something a manager can explain to you in one sitting, with no fine print surprises.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="services-grid">
+        <div class="service-card">
+          <svg class="icon" viewBox="0 0 38 38" fill="none"><rect x="4" y="10" width="30" height="20" stroke="#2A2A26" stroke-width="1.4"/><line x1="4" y1="16" x2="34" y2="16" stroke="#2A2A26" stroke-width="1.4"/><circle cx="10" cy="23" r="2" fill="#A24E3B"/></svg>
+          <h3>Standard savings</h3>
+          <p>A straightforward savings account with monthly interest and no minimum balance games. Withdraw anytime, no penalties.</p>
+          <span class="rate">4.5% p.a.</span>
+        </div>
+        <div class="service-card">
+          <svg class="icon" viewBox="0 0 38 38" fill="none"><rect x="5" y="6" width="28" height="26" stroke="#2A2A26" stroke-width="1.4"/><line x1="5" y1="14" x2="33" y2="14" stroke="#2A2A26" stroke-width="1.4"/><line x1="11" y1="21" x2="27" y2="21" stroke="#A24E3B" stroke-width="1.4"/><line x1="11" y1="26" x2="21" y2="26" stroke="#2A2A26" stroke-width="1.4"/></svg>
+          <h3>Current account</h3>
+          <p>Day-to-day banking with a debit card, free transfers, and a manager on speed dial for anything unusual.</p>
+          <span class="rate">₦0 monthly fee</span>
+        </div>
+        <div class="service-card">
+          <svg class="icon" viewBox="0 0 38 38" fill="none"><circle cx="19" cy="19" r="14" stroke="#2A2A26" stroke-width="1.4"/><path d="M19 11v8l6 4" stroke="#A24E3B" stroke-width="1.4" fill="none"/></svg>
+          <h3>Fixed deposit</h3>
+          <p>Lock in funds for 3, 6, or 12 months and earn a fixed rate agreed upfront, in writing, before you commit.</p>
+          <span class="rate">Up to 9.2% p.a.</span>
+        </div>
+        <div class="service-card">
+          <svg class="icon" viewBox="0 0 38 38" fill="none"><path d="M19 5l12 6v8c0 8-5 13-12 14-7-1-12-6-12-14v-8l12-6z" stroke="#2A2A26" stroke-width="1.4"/></svg>
+          <h3>Private advisory</h3>
+          <p>One-on-one planning sessions for property purchases, school fees, and long-term saving goals, by appointment.</p>
+          <span class="rate">By appointment</span>
+        </div>
+        <div class="service-card">
+          <svg class="icon" viewBox="0 0 38 38" fill="none"><rect x="6" y="12" width="26" height="17" rx="1" stroke="#2A2A26" stroke-width="1.4"/><line x1="6" y1="18" x2="32" y2="18" stroke="#2A2A26" stroke-width="1.4"/><rect x="10" y="22" width="6" height="3" fill="#A24E3B"/></svg>
+          <h3>Debit card</h3>
+          <p>A no-fee card that works everywhere, tied directly to your current account and issued at the branch.</p>
+          <span class="rate">Issued in 3 days</span>
+        </div>
+        <div class="service-card">
+          <svg class="icon" viewBox="0 0 38 38" fill="none"><path d="M6 19h26M22 9l10 10-10 10" stroke="#2A2A26" stroke-width="1.4" fill="none"/></svg>
+          <h3>Transfers &amp; bills</h3>
+          <p>Send money and pay bills from your account with same-day settlement, and no charges hidden in the fine print.</p>
+          <span class="rate">Free, unlimited</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker">Opening an account</p>
+          <h2>What to bring on your first visit.</h2>
+        </div>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-item">
+          <span class="num">01</span>
+          <h3>Valid ID</h3>
+          <p>A national ID, international passport, or driver's licence — anything with your photo and signature.</p>
+        </div>
+        <div class="trust-item">
+          <span class="num">02</span>
+          <h3>Proof of address</h3>
+          <p>A recent utility bill or tenancy agreement showing your current address.</p>
+        </div>
+        <div class="trust-item">
+          <span class="num">03</span>
+          <h3>Opening deposit</h3>
+          <p>₦5,000 for savings accounts, or ₦100,000 for a fixed deposit — current accounts have no minimum.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <p class="kicker" style="margin-bottom:16px;">Pick an account</p>
+      <h2>Ready to open one of these?</h2>
+      <p>Check today's rates, then visit us on Victoria Island — most accounts are opened same-day.</p>
+      <div class="cta-actions">
+        <a href="rates.html" class="btn btn-primary">Check current rates</a>
+        <a href="contact.html" class="btn btn-ghost">Visit the branch</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <p class="foot-logo">Kris Bank</p>
+        <p style="font-size:13.5px;max-width:32ch;">A personal banking house on Victoria Island, Lagos State.</p>
+      </div>
+      <div>
+        <h4>Accounts</h4>
+        <ul>
+          <li><a href="services.html">Savings</a></li>
+          <li><a href="services.html">Current</a></li>
+          <li><a href="services.html">Fixed deposit</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Bank</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="rates.html">Rates</a></li>
+          <li><a href="contact.html">Branch</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@krisbank.example">hello@krisbank.example</a></li>
+          <li><a href="tel:+2341234567">+234 (0) 1 234 5678</a></li>
+          <li>Victoria Island, Lagos</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Kris Bank. All rights reserved.</span>
+      <span>Demo site — not a registered financial institution.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="loginOverlay">
+  <div class="modal">
+    <button class="close" id="closeLogin" aria-label="Close">✕</button>
+
+    <div class="modal-tabs">
+      <button type="button" class="modal-tab active" data-tab="login">Log in</button>
+      <button type="button" class="modal-tab" data-tab="signup">Open account</button>
+    </div>
+
+    <div class="modal-pane" id="paneLogin">
+      <h3>Welcome back</h3>
+      <p class="sub">Log in to view your account ledger.</p>
+      <form id="loginForm">
+        <div class="field">
+          <label for="loginAcct">Account number</label>
+          <input type="text" id="loginAcct" inputmode="numeric" placeholder="10-digit account number" required>
+        </div>
+        <div class="field">
+          <label for="loginPin">PIN</label>
+          <input type="password" id="loginPin" placeholder="••••" maxlength="4" inputmode="numeric" required>
+        </div>
+        <p class="field-error" id="loginError"></p>
+        <button type="submit" class="btn btn-primary">Log in</button>
+      </form>
+    </div>
+
+    <div class="modal-pane" id="paneSignup" hidden>
+      <h3>Open an account</h3>
+      <p class="sub">Creates a demo account, stored in this browser only.</p>
+      <form id="signupForm">
+        <div class="field">
+          <label for="signupName">Full name</label>
+          <input type="text" id="signupName" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label for="signupType">Account type</label>
+          <select id="signupType">
+            <option>Standard savings</option>
+            <option>Current account</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="signupDeposit">Opening deposit (₦)</label>
+          <input type="number" id="signupDeposit" min="0" step="500" value="5000" required>
+        </div>
+        <div class="field">
+          <label for="signupPin">Choose a 4-digit PIN</label>
+          <input type="password" id="signupPin" placeholder="••••" maxlength="4" inputmode="numeric" required>
+        </div>
+        <p class="field-error" id="signupError"></p>
+        <button type="submit" class="btn btn-primary">Create account</button>
+      </form>
+    </div>
+
+    <p class="modal-note">Demo only — accounts live in this browser's storage, not a real bank.</p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

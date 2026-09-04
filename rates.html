@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rates — Kris Bank</title>
+<meta name="description" content="Current interest rates for savings, current, and fixed deposit accounts at Kris Bank, Victoria Island, Lagos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo">Kris Bank <span class="mark">KB</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="rates.html" class="active">Rates</a></li>
+      <li><a href="contact.html">Branch &amp; Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="dashboard.html" class="btn btn-ghost">My account</a>
+      <button class="btn btn-ghost" id="openLogin">Log in</button>
+      <a href="contact.html" class="btn btn-primary">Open an account</a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">MENU</button>
+  </nav>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="kicker" style="margin-bottom:16px;">Rate sheet</p>
+      <h1>Current rates, reviewed monthly.</h1>
+      <p>The same rate sheet your manager works from — nothing quoted here changes without a conversation first.</p>
+    </div>
+  </section>
+
+  <section class="ledger">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker">As of today</p>
+          <h2 style="color:var(--cream);">Interest rates by account</h2>
+        </div>
+        <p>Rates shown are annualised (p.a.) and reviewed monthly.</p>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Account</th><th>Minimum</th><th>Rate</th><th>Access</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Standard savings</td><td>₦5,000</td><td class="rate-val">4.5% p.a.</td><td>Anytime</td></tr>
+          <tr><td>Current account</td><td>₦0</td><td class="rate-val">—</td><td>Anytime</td></tr>
+          <tr><td>Fixed deposit, 3mo</td><td>₦100,000</td><td class="rate-val">7.0% p.a.</td><td>At maturity</td></tr>
+          <tr><td>Fixed deposit, 6mo</td><td>₦100,000</td><td class="rate-val">8.1% p.a.</td><td>At maturity</td></tr>
+          <tr><td>Fixed deposit, 12mo</td><td>₦100,000</td><td class="rate-val">9.2% p.a.</td><td>At maturity</td></tr>
+        </tbody>
+      </table>
+      <p class="rates-note">Early withdrawal on a fixed deposit forfeits interest for the current term. Rates are set by Kris Bank and may change with 30 days' notice to existing account holders.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker">Good to know</p>
+          <h2>How rates work here.</h2>
+        </div>
+      </div>
+      <div class="trust-grid">
+        <div class="trust-item">
+          <span class="num">01</span>
+          <h3>Set in writing</h3>
+          <p>Your rate is confirmed on your account opening letter and doesn't move without notice.</p>
+        </div>
+        <div class="trust-item">
+          <span class="num">02</span>
+          <h3>Reviewed monthly</h3>
+          <p>The rate sheet is revisited every month, but existing balances keep their agreed rate for the term.</p>
+        </div>
+        <div class="trust-item">
+          <span class="num">03</span>
+          <h3>No hidden tiers</h3>
+          <p>One rate per account type — we don't quote a headline rate that only applies to a small opening balance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="wrap">
+      <p class="kicker" style="margin-bottom:16px;">Like what you see</p>
+      <h2>Lock in today's rate.</h2>
+      <p>Rates can change with notice — opening your account now secures what's listed above for your term.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn btn-primary">Open an account</a>
+        <a href="services.html" class="btn btn-ghost">Compare accounts</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <p class="foot-logo">Kris Bank</p>
+        <p style="font-size:13.5px;max-width:32ch;">A personal banking house on Victoria Island, Lagos State.</p>
+      </div>
+      <div>
+        <h4>Accounts</h4>
+        <ul>
+          <li><a href="services.html">Savings</a></li>
+          <li><a href="services.html">Current</a></li>
+          <li><a href="services.html">Fixed deposit</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Bank</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="rates.html">Rates</a></li>
+          <li><a href="contact.html">Branch</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@krisbank.example">hello@krisbank.example</a></li>
+          <li><a href="tel:+2341234567">+234 (0) 1 234 5678</a></li>
+          <li>Victoria Island, Lagos</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Kris Bank. All rights reserved.</span>
+      <span></span>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="loginOverlay">
+  <div class="modal">
+    <button class="close" id="closeLogin" aria-label="Close">✕</button>
+
+    <div class="modal-tabs">
+      <button type="button" class="modal-tab active" data-tab="login">Log in</button>
+      <button type="button" class="modal-tab" data-tab="signup">Open account</button>
+    </div>
+
+    <div class="modal-pane" id="paneLogin">
+      <h3>Welcome back</h3>
+      <p class="sub">Log in to view your account ledger.</p>
+      <form id="loginForm">
+        <div class="field">
+          <label for="loginAcct">123456789</label>
+          <input type="text" id="loginAcct" inputmode="numeric" placeholder="10-digit account number" required>
+        </div>
+        <div class="field">
+          <label for="loginPin">9066</label>
+          <input type="password" id="loginPin" placeholder="••••" maxlength="4" inputmode="numeric" required>
+        </div>
+        <p class="field-error" id="loginError"></p>
+        <button type="submit" class="btn btn-primary">Log in</button>
+      </form>
+    </div>
+
+    <div class="modal-pane" id="paneSignup" hidden>
+      <h3>Open an account</h3>
+      <p class="sub"></p>
+      <form id="signupForm">
+        <div class="field">
+          <label for="signupName">Full name</label>
+          <input type="text" id="signupName" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label for="signupType">Account type</label>
+          <select id="signupType">
+            <option>Standard savings</option>
+            <option>Current account</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="signupDeposit">Opening deposit (₦)</label>
+          <input type="number" id="signupDeposit" min="0" step="500" value="5000" required>
+        </div>
+        <div class="field">
+          <label for="signupPin">Choose a 4-digit PIN</label>
+          <input type="password" id="signupPin" placeholder="••••" maxlength="4" inputmode="numeric" required>
+        </div>
+        <p class="field-error" id="signupError"></p>
+        <button type="submit" class="btn btn-primary">Create account</button>
+      </form>
+    </div>
+
+    <p class="modal-note"></p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

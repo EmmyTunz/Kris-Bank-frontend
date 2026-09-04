@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Branch &amp; Contact — Kris Bank</title>
+<meta name="description" content="Visit Kris Bank House on Victoria Island, Lagos State, or send us a message. Branch hours, address, phone and email.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <nav>
+    <a href="index.html" class="logo">Kris Bank <span class="mark">KB</span></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="rates.html">Rates</a></li>
+      <li><a href="contact.html" class="active">Branch &amp; Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="dashboard.html" class="btn btn-ghost">My account</a>
+      <button class="btn btn-ghost" id="openLogin">Log in</button>
+      <a href="#contact-form" class="btn btn-primary">Open an account</a>
+    </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">MENU</button>
+  </nav>
+</header>
+
+<main>
+
+  <section class="page-hero">
+    <div class="wrap">
+      <p class="kicker" style="margin-bottom:16px;">Visit or write to us</p>
+      <h1>One branch, on Victoria Island.</h1>
+      <p>Bring a valid ID and proof of address and most accounts are opened the same day. Prefer to write first? Use the form below.</p>
+    </div>
+  </section>
+
+  <section id="location">
+    <div class="wrap">
+      <div class="location">
+        <div class="stamp-card">
+          <svg class="stamp" viewBox="0 0 100 100" fill="none">
+            <circle cx="50" cy="50" r="46" stroke="#A24E3B" stroke-width="1.6" stroke-dasharray="3 3"/>
+            <circle cx="50" cy="50" r="36" stroke="#A24E3B" stroke-width="1.2"/>
+            <text x="50" y="46" text-anchor="middle" font-family="Space Mono, monospace" font-size="7" fill="#A24E3B">VICTORIA ISLAND</text>
+            <text x="50" y="58" text-anchor="middle" font-family="Space Mono, monospace" font-size="7" fill="#A24E3B">LAGOS STATE</text>
+          </svg>
+          <p class="kicker" style="margin-bottom:20px;">Head office</p>
+          <div class="addr-line">
+            <span class="k">Address</span>
+            <span class="v">Kris Bank House, Victoria Island, Lagos State, Nigeria</span>
+          </div>
+          <div class="addr-line">
+            <span class="k">Hours</span>
+            <span class="v">Mon – Fri, 8:00 – 17:00 WAT</span>
+          </div>
+          <div class="addr-line">
+            <span class="k">Phone</span>
+            <span class="v">+234 (0) 1 234 5678</span>
+          </div>
+          <div class="addr-line">
+            <span class="k">Email</span>
+            <span class="v">krisbank22@gmail.com</span>
+          </div>
+        </div>
+        <div class="map-art">
+          <svg viewBox="0 0 400 340" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Abstract line map of Victoria Island, Lagos">
+            <path d="M20 250 C 80 180, 140 300, 220 240 C 280 195, 320 240, 380 200 L 380 320 L 20 320 Z" fill="#DCD5C4"/>
+            <path d="M20 250 C 80 180, 140 300, 220 240 C 280 195, 320 240, 380 200" stroke="#2A2A26" stroke-width="1.4" fill="none"/>
+            <g stroke="#7A766C" stroke-width="1">
+              <line x1="60" y1="60" x2="60" y2="230"/>
+              <line x1="140" y1="30" x2="140" y2="250"/>
+              <line x1="220" y1="20" x2="220" y2="230"/>
+              <line x1="300" y1="40" x2="300" y2="210"/>
+              <line x1="20" y1="90" x2="360" y2="90"/>
+              <line x1="20" y1="150" x2="360" y2="150"/>
+            </g>
+            <circle cx="140" cy="150" r="6" fill="#A24E3B"/>
+            <text x="152" y="154" font-family="Space Mono, monospace" font-size="11" fill="#2A2A26">Kris Bank</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="contact-form">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="kicker">Send a message</p>
+          <h2>Prefer to write first?</h2>
+        </div>
+        <p>A relationship manager will get back to you within one business day.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="form-card">
+          <form id="contactForm" name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="contact">
+            <p class="visually-hidden">
+              <label><input name="bot-field"></label>
+            </p>
+            <div class="field">
+              <label for="name">Full name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="field">
+              <label for="email">ejioguvictor7@gmail.coml</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+            <div class="field">
+              
+              <select id="reason" name="reason">
+                <option>Opening a new account</option>
+                <option>Fixed deposit rates</option>
+                <option>Private advisory</option>
+                <option>Something else</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Tell us a bit about what you need" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send message</button>
+            <p class="form-note" id="contactFormNote">Sent straight to Kris Bank once this site is live on Netlify.</p>
+          </form>
+        </div>
+        <div>
+          <div class="trust-item" style="background:var(--cream);border:1px solid var(--grey-line);margin-bottom:1px;">
+            <h3>Walk in</h3>
+            <p>No appointment needed for savings or current accounts — just bring your ID and proof of address.</p>
+          </div>
+          <div class="trust-item" style="background:var(--cream);border:1px solid var(--grey-line);margin-bottom:1px;">
+            <h3>Book advisory</h3>
+            <p>Private advisory sessions run by appointment — mention it in your message and we'll set a time.</p>
+          </div>
+          <div class="trust-item" style="background:var(--cream);border:1px solid var(--grey-line);">
+            <h3>Call the branch</h3>
+            <p>For anything urgent, phone the branch directly at +234 (0) 1 234 5678 during business hours.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <p class="foot-logo">Kris Bank</p>
+        <p style="font-size:13.5px;max-width:32ch;">A personal banking house on Victoria Island, Lagos State.</p>
+      </div>
+      <div>
+        <h4>Accounts</h4>
+        <ul>
+          <li><a href="services.html">Savings</a></li>
+          <li><a href="services.html">Current</a></li>
+          <li><a href="services.html">Fixed deposit</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Bank</h4>
+        <ul>
+          <li><a href="about.html">About</a></li>
+          <li><a href="rates.html">Rates</a></li>
+          <li><a href="contact.html">Branch</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="mailto:hello@krisbank.example">hello@krisbank.example</a></li>
+          <li><a href="tel:+2341234567">+234 (0) 1 234 5678</a></li>
+          <li>Victoria Island, Lagos</li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Kris Bank. All rights reserved.</span>
+      <span>Demo site — not a registered financial institution.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="loginOverlay">
+  <div class="modal">
+    <button class="close" id="closeLogin" aria-label="Close">✕</button>
+
+    <div class="modal-tabs">
+      <button type="button" class="modal-tab active" data-tab="login">Log in</button>
+      <button type="button" class="modal-tab" data-tab="signup">Open account</button>
+    </div>
+
+    <div class="modal-pane" id="paneLogin">
+      <h3>Welcome back</h3>
+      <p class="sub">Log in to view your account ledger.</p>
+      <form id="loginForm">
+        <div class="field">
+          <label for="loginAcct">Account number</label>
+          <input type="text" id="loginAcct" inputmode="numeric" placeholder="10-digit account number" required>
+        </div>
+        <div class="field">
+          <label for="loginPin">PIN</label>
+          <input type="password" id="loginPin" placeholder="••••" maxlength="4" inputmode="numeric" required>
+        </div>
+        <p class="field-error" id="loginError"></p>
+        <button type="submit" class="btn btn-primary">Log in</button>
+      </form>
+    </div>
+
+    <div class="modal-pane" id="paneSignup" hidden>
+      <h3>Open an account</h3>
+      <p class="sub">Creates a demo account, stored in this browser only.</p>
+      <form id="signupForm">
+        <div class="field">
+          <label for="signupName">Full name</label>
+          <input type="text" id="signupName" placeholder="Your name" required>
+        </div>
+        <div class="field">
+          <label for="signupType">Account type</label>
+          <select id="signupType">
+            <option>Standard savings</option>
+            <option>Current account</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="signupDeposit">Opening deposit (₦)</label>
+          <input type="number" id="signupDeposit" min="0" step="500" value="5000" required>
+        </div>
+        <div class="field">
+          <label for="signupPin">Choose a 4-digit PIN</label>
+          <input type="password" id="signupPin" placeholder="••••" maxlength="4" inputmode="numeric" required>
+        </div>
+        <p class="field-error" id="signupError"></p>
+        <button type="submit" class="btn btn-primary">Create account</button>
+      </form>
+    </div>
+
+    <p class="modal-note">Demo only — accounts live in this browser's storage, not a real bank.</p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
