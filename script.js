@@ -368,22 +368,73 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------- Dashboard (only runs on dashboard.html) ---------- */
-  async function getCurrentUser() {
-    const token = localStorage.getItem('access_token');
 
-    if (!token) {
-        return null;
+  /* ---------- Auth helpers ---------- */
+  var refreshPromise = null; // the refresh currently in progress, if any
+
+  async function refreshTokens() {
+    var refreshToken = localStorage.getItem('refresh_token');
+    if (!refreshToken) return false;
+
+    try {
+      var response = await fetch(`${API_URL}/auth/refresh`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ refresh_token: refreshToken })
+      });
+
+      if (!response.ok) {
+        // The server rejected the token: the session is really over
+        if (response.status === 401 || response.status === 403) {
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
+        }
+        return false;
+      }
+
+      var data = await response.json();
+      localStorage.setItem('access_token', data.access_token);
+      localStorage.setItem('refresh_token', data.refresh_token);
+      return true;
+    } catch (error) {
+      // Network error: keep the tokens, they may still be valid
+      return false;
+    }
+  }
+
+  function refreshOnce() {
+    if (!refreshPromise) {
+      refreshPromise = refreshTokens().finally(function () {
+        refreshPromise = null;
+      });
+    }
+    return refreshPromise;
+  }
+
+  async function authFetch(path, options) {
+    options = options || {};
+
+    function send() {
+      var token = localStorage.getItem('access_token');
+      var headers = Object.assign({}, options.headers, {
+        'Authorization': `Bearer ${token}`
+      });
+      return fetch(`${API_URL}${path}`, Object.assign({}, options, { headers: headers }));
     }
 
-    const response = await fetch(`${API_URL}/auth/me`, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Bearer ${token}`
-        }
-    });
+    var response = await send();
+    if (response.status !== 401) return response;
 
+    var refreshed = await refreshOnce();
+    if (!refreshed) return response;
+
+    return send(); // retry once with the new access token
+  }
+
+  async function getCurrentUser() {
+    var response = await authFetch('/auth/me');
     if (!response.ok) {
-        return null;
+      return null;
     }
 
     return await response.json();
@@ -391,18 +442,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
   async function getMyAccount() {
-      const token = localStorage.getItem('access_token');
-
-      if (!token) {
-          return null;
-      }
-
-      const response = await fetch(`${API_URL}/accounts/me`, {
-          method: 'GET',
-          headers: {
-              'Authorization': `Bearer ${token}`
-          }
-      });
+      var response = await authFetch('/accounts/me')
 
       if (!response.ok) {
           return null;
@@ -411,18 +451,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return await response.json();
   }
   async function getMyTransactions() {
-      const token = localStorage.getItem('access_token');
-
-      if (!token) {
-          return [];
-      }
-
-      const response = await fetch(`${API_URL}/accounts/transactions`, {
-          method: 'GET',
-          headers: {
-              'Authorization': `Bearer ${token}`
-          }
-      });
+      var response = await authFetch('/accounts/transactions')
 
       if (!response.ok) {
           return [];
