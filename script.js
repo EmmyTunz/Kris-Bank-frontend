@@ -410,6 +410,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
       return await response.json();
   }
+  async function getMyTransactions() {
+      const token = localStorage.getItem('access_token');
+
+      if (!token) {
+          return [];
+      }
+
+      const response = await fetch(`${API_URL}/accounts/transactions`, {
+          method: 'GET',
+          headers: {
+              'Authorization': `Bearer ${token}`
+          }
+      });
+
+      if (!response.ok) {
+          return [];
+      }
+
+      return await response.json();
+  }
   var dashRoot = document.getElementById('dashboardRoot');
   if (dashRoot) {
     initDashboard();
@@ -420,6 +440,8 @@ document.addEventListener('DOMContentLoaded', function () {
     var user = await getCurrentUser();
 
     var account = await getMyAccount();
+
+    var transactions = await getMyTransactions();
 
     console.log('Dashboard user:', user);
     console.log('Dashboard account:', account);
@@ -449,7 +471,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('dashBalance').textContent =
       `₦${Number(account.balance).toLocaleString()}`;
 
-    // render(account);  // Keep this commented for now
+    renderLedger(transactions); 
   }
 
   // if (document.getElementById('dashboardRoot')) {
@@ -457,37 +479,31 @@ document.addEventListener('DOMContentLoaded', function () {
   // }
 
 
-  function render(account) {
-    var setText = function (id, text) {
-      var el = document.getElementById(id);
-      if (el) el.textContent = text;
-    };
-    setText('dashName', account.name);
-    setText('dashAcctNumber', account.number);
-    setText('dashAcctType', account.type);
-    setText('dashBalance', KB.formatNaira(account.balance));
+  function renderLedger(transactions) {
 
     var tbody = document.getElementById('ledgerBody');
     var empty = document.getElementById('ledgerEmpty');
     if (!tbody) return;
     tbody.innerHTML = '';
 
-    if (!account.transactions.length) {
+    if (!transactions || !transactions.length) {
       if (empty) empty.hidden = false;
       return;
     }
     if (empty) empty.hidden = true;
 
-    account.transactions.forEach(function (t) {
+    var CREDIT_TYPES = ['deposit', 'transfer_in'];
+
+    transactions.forEach(function (t) {
       var tr = document.createElement('tr');
-      var isCredit = t.amount >= 0;
+      var isCredit = CREDIT_TYPES.includes(t.transaction_type.toLowerCase());
       tr.innerHTML =
-        '<td>' + KB.formatDate(t.ts) + '</td>' +
-        '<td>' + escapeHtml(t.desc) + '</td>' +
+        '<td>' + KB.formatDate(t.created_at) + '</td>' +
+        '<td>' + escapeHtml(t.reference) + '</td>' +
+        '<td> '+ escapeHtml(t.transaction_type.replace('_', ' ')) + '</td>' +
         '<td class="' + (isCredit ? 'amt-credit' : 'amt-debit') + '">' +
-          (isCredit ? '+' : '−') + KB.formatNaira(Math.abs(t.amount)).replace('₦', '₦') +
-        '</td>' +
-        '<td>' + KB.formatNaira(t.balanceAfter) + '</td>';
+        (isCredit ? '+' : '−') + KB.formatNaira(t.amount) +
+        '</td>';
       tbody.appendChild(tr);
     });
   }

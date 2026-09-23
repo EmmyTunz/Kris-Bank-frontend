@@ -380,6 +380,12 @@ footer{background:var(--charcoal);color:var(--stone);padding:64px 0 32px;}
 
 [hidden] { display: none !important; }
 
+.amt-credit, .amt-debit{
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto;}
   *{transition:none !important;}
