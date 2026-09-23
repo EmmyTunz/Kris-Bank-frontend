@@ -450,46 +450,24 @@ document.addEventListener('DOMContentLoaded', function () {
 
       return await response.json();
   }
+
   async function getMyTransactions() {
+    try {
       var response = await authFetch('/accounts/transactions')
-
-      if (!response.ok) {
-          return [];
-      }
-
-      return await response.json();
-  }
-  var dashRoot = document.getElementById('dashboardRoot');
-  if (dashRoot) {
-    initDashboard();
-  }
-
-  async function initDashboard() {
-
-    var user = await getCurrentUser();
-
-    var account = await getMyAccount();
-
-    var transactions = await getMyTransactions();
-
-    console.log('Dashboard user:', user);
-    console.log('Dashboard account:', account);
-
-    var gate = document.getElementById('gate');
-    var content = document.getElementById('dashboardContent');
-
-    // If the user is not authenticated, show the login gate
-    if (!user || !account) {
-
-      if (gate) gate.hidden = false;
-      if (content) content.hidden = true;
-
-      return;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
+  
+    if (!response.ok) {
+        return [];
     }
 
-    // User is authenticated and has an account
-    if (gate) gate.hidden = true;
-    if (content) content.hidden = false;
+    return await response.json();
+  }
+
+  async function loadDashboardData(user, account) {
+    var transactions = await getMyTransactions();
 
     document.getElementById('dashName').textContent =
       `Welcome, ${user.first_name.toUpperCase()} ${user.last_name.toUpperCase()}`;
@@ -501,6 +479,42 @@ document.addEventListener('DOMContentLoaded', function () {
       `₦${Number(account.balance).toLocaleString()}`;
 
     renderLedger(transactions); 
+  }
+
+  var dashRoot = document.getElementById('dashboardRoot');
+  if (dashRoot) {
+    initDashboard();
+  }
+
+  async function initDashboard() {
+    var gate = document.getElementById('gate');
+    var content = document.getElementById('dashboardContent');
+
+    var user = null;
+    var account = null;
+    try {
+      var user = await getCurrentUser();
+      var account = await getMyAccount();
+    } catch (error) {
+      console.error(error);
+    }
+     
+    // If the user is not authenticated, show the login gate
+    if (!user || !account) {
+
+      if (gate) gate.hidden = false;
+      if (content) content.hidden = true;
+
+      return;
+    }
+    
+
+    // User is authenticated and has an account
+    if (gate) gate.hidden = true;
+    if (content) content.hidden = false;
+
+    loadDashboardData(user, account);
+    
   }
 
   // if (document.getElementById('dashboardRoot')) {
