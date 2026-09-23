@@ -367,6 +367,56 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  /* ---------- Deposit ---------- */
+  var depositForm = document.getElementById('depositForm');
+  if (depositForm) {
+    depositForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      var amountInput = document.getElementById('depositAmount');
+      var msg = document.getElementById('depositMsg');
+      var submitBtn = depositForm.querySelector('button[type="submit"]');
+      var amount = Number(amountInput.value);
+
+      msg.className = 'field-error';
+      msg.textContent = '';
+
+      if (!amount || amount <= 0) {
+        msg.textContent = 'Enter an amount greater than zero.';
+        return;
+      }
+
+      submitBtn.disabled = true;
+
+      try {
+        var response = await authFetch('/accounts/me/deposit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount: amount })
+        });
+
+        var data = await response.json();
+
+        if (!response.ok) {
+          msg.textContent = typeof data.detail === 'string'
+            ? data.detail
+            : 'Please check the amount and try again.';
+          return;
+        }
+
+        msg.className = 'field-success';
+        msg.textContent = data.message ;
+        depositForm.reset();
+        loadDashboardData(); 
+      } catch (error) {
+        console.error(error);
+        msg.textContent = 'Unable to connect to the server.';
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  }
+
   /* ---------- Dashboard (only runs on dashboard.html) ---------- */
 
   /* ---------- Auth helpers ---------- */
@@ -466,11 +516,9 @@ document.addEventListener('DOMContentLoaded', function () {
     return await response.json();
   }
 
-  async function loadDashboardData(user, account) {
+  async function loadDashboardData() {
     var transactions = await getMyTransactions();
-
-    document.getElementById('dashName').textContent =
-      `Welcome, ${user.first_name.toUpperCase()} ${user.last_name.toUpperCase()}`;
+    var account = await getMyAccount();
 
     document.getElementById('dashAcctNumber').textContent =
       account.account_number;
@@ -513,7 +561,10 @@ document.addEventListener('DOMContentLoaded', function () {
     if (gate) gate.hidden = true;
     if (content) content.hidden = false;
 
-    loadDashboardData(user, account);
+
+    document.getElementById('dashName').textContent =
+      `Welcome, ${user.first_name.toUpperCase()} ${user.last_name.toUpperCase()}`;
+    loadDashboardData();
     
   }
 

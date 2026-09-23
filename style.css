@@ -385,6 +385,8 @@ footer{background:var(--charcoal);color:var(--stone);padding:64px 0 32px;}
   white-space: nowrap;
 }
 
+.field-success, .field-error{margin-top:10px;colour:var(--grey-mid);font-size:13px;min-height:1em;}
+
 
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto;}
