@@ -86,7 +86,10 @@ var KB = (function () {
   }
 
   function logout() {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("refresh_token");
     localStorage.removeItem(SESSION_KEY);
+    window.location.href = 'index.html';
   }
 
   function getAccountByNumber(number) {
@@ -247,17 +250,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
               localStorage.setItem('access_token', data.access_token);
               localStorage.setItem('refresh_token', data.refresh_token);
-              var meResponse = await fetch(`${API_URL}/auth/me`, {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${data.access_token}`
-                    }
-              });
 
-              var meData = await meResponse.json();
-
-              console.log('Current user:', meData);
-              console.log('Login successful');
+              window.location.href = 'dashboard.html';
 
           } catch (error) {
               console.error(error);
@@ -436,7 +430,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // If the user is not authenticated, show the login gate
     if (!user || !account) {
 
-      if (gate) gate.remove();
+      if (gate) gate.hidden = false;
       if (content) content.hidden = true;
 
       return;
@@ -447,7 +441,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (content) content.hidden = false;
 
     document.getElementById('dashName').textContent =
-      `${user.first_name.toUpperCase()} ${user.last_name.toUpperCase()}`;
+      `Welcome, ${user.first_name.toUpperCase()} ${user.last_name.toUpperCase()}`;
 
     document.getElementById('dashAcctNumber').textContent =
       account.account_number;
@@ -503,4 +497,14 @@ document.addEventListener('DOMContentLoaded', function () {
     div.textContent = str;
     return div.innerHTML;
   }
+
+  /* ---------- Logout ---------- */
+var logoutBtn = document.getElementById('logoutBtn');
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', function () {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    window.location.href = 'index.html';
+  });
+}
 });
