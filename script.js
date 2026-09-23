@@ -374,75 +374,94 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   /* ---------- Dashboard (only runs on dashboard.html) ---------- */
+  async function getCurrentUser() {
+    const token = localStorage.getItem('access_token');
+
+    if (!token) {
+        return null;
+    }
+
+    const response = await fetch(`${API_URL}/auth/me`, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+
+    if (!response.ok) {
+        return null;
+    }
+
+    return await response.json();
+  }
+
+
+  async function getMyAccount() {
+      const token = localStorage.getItem('access_token');
+
+      if (!token) {
+          return null;
+      }
+
+      const response = await fetch(`${API_URL}/accounts/me`, {
+          method: 'GET',
+          headers: {
+              'Authorization': `Bearer ${token}`
+          }
+      });
+
+      if (!response.ok) {
+          return null;
+      }
+
+      return await response.json();
+  }
   var dashRoot = document.getElementById('dashboardRoot');
   if (dashRoot) {
     initDashboard();
   }
 
-  function initDashboard() {
-    var sessionNumber = KB.getSession();
-    var account = sessionNumber ? KB.getAccountByNumber(sessionNumber) : null;
+  async function initDashboard() {
+
+    var user = await getCurrentUser();
+
+    var account = await getMyAccount();
+
+    console.log('Dashboard user:', user);
+    console.log('Dashboard account:', account);
 
     var gate = document.getElementById('gate');
     var content = document.getElementById('dashboardContent');
 
-    if (!account) {
-      if (gate) gate.hidden = false;
+    // If the user is not authenticated, show the login gate
+    if (!user || !account) {
+
+      if (gate) gate.remove();
       if (content) content.hidden = true;
+
       return;
     }
+
+    // User is authenticated and has an account
     if (gate) gate.hidden = true;
     if (content) content.hidden = false;
 
-    render(account);
+    document.getElementById('dashName').textContent =
+      `${user.first_name.toUpperCase()} ${user.last_name.toUpperCase()}`;
 
-    var logoutBtn = document.getElementById('logoutBtn');
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', function () {
-        KB.logout();
-        window.location.href = 'index.html';
-      });
-    }
+    document.getElementById('dashAcctNumber').textContent =
+      account.account_number;
 
-    var depositForm = document.getElementById('depositForm');
-    if (depositForm) {
-      depositForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var amount = document.getElementById('depositAmount').value;
-        var desc = document.getElementById('depositDesc').value.trim() || 'Deposit';
-        var result = KB.deposit(account.number, amount, desc);
-        var msg = document.getElementById('depositMsg');
-        if (!result.ok) {
-          msg.textContent = result.error;
-          return;
-        }
-        msg.textContent = '';
-        depositForm.reset();
-        account = result.account;
-        render(account);
-      });
-    }
+    document.getElementById('dashBalance').textContent =
+      `₦${Number(account.balance).toLocaleString()}`;
 
-    var transferForm = document.getElementById('transferForm');
-    if (transferForm) {
-      transferForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var to = document.getElementById('transferTo').value.trim();
-        var amount = document.getElementById('transferAmount').value;
-        var desc = document.getElementById('transferDesc').value.trim();
-        var result = KB.transfer(account.number, to, amount, desc);
-        var msg = document.getElementById('transferMsg');
-        if (!result.ok) {
-          msg.textContent = result.error;
-          return;
-        }
-        msg.textContent = '';
-        transferForm.reset();
-        account = result.account;
-        render(account);
-      });
-    }
+    // render(account);  // Keep this commented for now
   }
+
+  // if (document.getElementById('dashboardRoot')) {
+  //   initDashboard();
+  // }
+
 
   function render(account) {
     var setText = function (id, text) {

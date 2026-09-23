@@ -378,6 +378,8 @@ footer{background:var(--charcoal);color:var(--stone);padding:64px 0 32px;}
   position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;
 }
 
+[hidden] { display: none !important; }
+
 @media (prefers-reduced-motion: reduce){
   html{scroll-behavior:auto;}
   *{transition:none !important;}
