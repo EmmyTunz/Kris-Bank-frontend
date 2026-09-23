@@ -417,6 +417,56 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+    /* ---------- Withdrawal ---------- */
+  var withdrawalForm = document.getElementById('withdrawalForm');
+  if (withdrawalForm) {
+    withdrawalForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      var amountInput = document.getElementById('withdrawalAmount');
+      var msg = document.getElementById('withdrawalMsg');
+      var submitBtn = withdrawalForm.querySelector('button[type="submit"]');
+      var amount = Number(amountInput.value);
+
+      msg.className = 'field-error';
+      msg.textContent = '';
+
+      if (!amount || amount <= 0) {
+        msg.textContent = 'Enter an amount greater than zero.';
+        return;
+      }
+
+      submitBtn.disabled = true;
+
+      try {
+        var response = await authFetch('/accounts/me/withdraw', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ amount: amount })
+        });
+
+        var data = await response.json();
+
+        if (!response.ok) {
+          msg.textContent = typeof data.detail === 'string'
+            ? data.detail
+            : 'Please check the amount and try again.';
+          return;
+        }
+
+        msg.className = 'field-success';
+        msg.textContent = data.message;
+        withdrawalForm.reset();
+        loadDashboardData(); 
+      } catch (error) {
+        console.error(error);
+        msg.textContent = 'Unable to connect to the server.';
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  }
+
   /* ---------- Dashboard (only runs on dashboard.html) ---------- */
 
   /* ---------- Auth helpers ---------- */
