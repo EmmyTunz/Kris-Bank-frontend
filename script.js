@@ -467,6 +467,64 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  /* ---------- Transfer ---------- */
+  var transferForm = document.getElementById('transferForm');
+  if (transferForm) {
+    transferForm.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      var toInput = document.getElementById('transferTo');
+      var amountInput = document.getElementById('transferAmount');
+      var msg = document.getElementById('transferMsg');
+      var submitBtn = transferForm.querySelector('button[type="submit"]');
+
+      var accountNumber = toInput.value.trim(); // keep as a string
+      var amount = Number(amountInput.value);
+
+      msg.className = 'field-error';
+      msg.textContent = '';
+
+      if (!/^\d{10}$/.test(accountNumber)) {
+        msg.textContent = 'Enter a valid 10-digit account number.';
+        return;
+      }
+      if (!amount || amount <= 0) {
+        msg.textContent = 'Enter an amount greater than zero.';
+        return;
+      }
+
+      submitBtn.disabled = true;
+
+      try {
+        var response = await authFetch('/accounts/transfers', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ account_number: accountNumber, amount: amount })
+        });
+
+        var data = await response.json();
+
+        if (!response.ok) {
+          msg.textContent = typeof data.detail === 'string'
+            ? data.detail
+            : 'Please check the details and try again.';
+          return;
+        }
+
+        msg.className = 'field-success';
+        msg.textContent = KB.formatNaira(data.amount) + ' sent to ' + data.receiver_name.toUpperCase() +
+          '. Ref: ' + data.sender_reference;
+        transferForm.reset();
+        loadDashboardData();
+      } catch (error) {
+        console.error(error);
+        msg.textContent = 'Unable to connect to the server.';
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  }
+
   /* ---------- Dashboard (only runs on dashboard.html) ---------- */
 
   /* ---------- Auth helpers ---------- */
