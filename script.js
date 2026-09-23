@@ -6,6 +6,8 @@
    for demo/prototype purposes, not a real banking backend.
    ============================================================ */
 
+const API_URL = "http://127.0.0.1:8000";
+
 var KB = (function () {
   var ACCOUNTS_KEY = 'krisbank_accounts';
   var SESSION_KEY = 'krisbank_session';
@@ -215,42 +217,107 @@ document.addEventListener('DOMContentLoaded', function () {
   var loginForm = document.getElementById('loginForm');
   var loginError = document.getElementById('loginError');
   if (loginForm) {
-    loginForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var number = document.getElementById('loginAcct').value.trim();
-      var pin = document.getElementById('loginPin').value.trim();
-      var result = KB.login(number, pin);
-      if (!result.ok) {
-        loginError.textContent = result.error;
-        return;
-      }
-      loginError.textContent = '';
-      window.location.href = 'dashboard.html';
-    });
+      loginForm.addEventListener('submit', async function (e) {
+          e.preventDefault();
+
+          var email = document.getElementById('loginEmail').value.trim();
+          var password = document.getElementById('loginPassword').value;
+
+          loginError.textContent = '';
+    
+          try {
+              var response = await fetch(`${API_URL}/auth/login`, {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                      email: email,
+                      password: password
+                  })
+              });
+
+              var data = await response.json();
+
+              if (!response.ok) {
+                  loginError.textContent =
+                      data.detail || 'Login failed.';
+                  return;
+              }
+
+              localStorage.setItem('access_token', data.access_token);
+              localStorage.setItem('refresh_token', data.refresh_token);
+              var meResponse = await fetch(`${API_URL}/auth/me`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${data.access_token}`
+                    }
+              });
+
+              var meData = await meResponse.json();
+
+              console.log('Current user:', meData);
+              console.log('Login successful');
+
+          } catch (error) {
+              console.error(error);
+              loginError.textContent =
+                  'Unable to connect to the server.';
+          }
+      });
   }
 
   var signupForm = document.getElementById('signupForm');
   var signupError = document.getElementById('signupError');
-  if (signupForm) {
-    signupForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var name = document.getElementById('signupName').value.trim();
-      var type = document.getElementById('signupType').value;
-      var deposit = document.getElementById('signupDeposit').value;
-      var pin = document.getElementById('signupPin').value.trim();
 
-      if (!/^\d{4}$/.test(pin)) {
-        signupError.textContent = 'PIN must be exactly 4 digits.';
-        return;
-      }
-      if (Number(deposit) < 0) {
-        signupError.textContent = 'Opening deposit can\'t be negative.';
-        return;
-      }
-      signupError.textContent = '';
-      KB.signup({ name: name, type: type, deposit: deposit, pin: pin });
-      window.location.href = 'dashboard.html';
-    });
+  if (signupForm) {
+      signupForm.addEventListener('submit', async function (e) {
+          e.preventDefault();
+
+          var firstName = document.getElementById('signupFirstName').value.trim();
+          var lastName = document.getElementById('signupLastName').value.trim();
+          var email = document.getElementById('signupEmail').value.trim();
+          var phoneNumber = document.getElementById('signupPhone').value.trim();
+          var password = document.getElementById('signupPassword').value;
+
+          signupError.textContent = '';
+
+          try {
+              var response = await fetch(`${API_URL}/auth/register`, {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                      first_name: firstName,
+                      last_name: lastName,
+                      email: email,
+                      phone_number: phoneNumber,
+                      password: password
+                  })
+              });
+
+              var data = await response.json();
+
+              if (!response.ok) {
+                  signupError.textContent = data.detail || 'Registration failed.';
+                  return;
+              }
+
+              console.log('Registration successful:', data);
+
+              alert(
+                  `Account created successfully!\n\nYour account number is: ${data.account_number}`
+              );
+
+              signupForm.reset();
+
+          } catch (error) {
+              console.error(error);
+              signupError.textContent =
+                  'Unable to connect to the server.';
+          }
+      });
   }
 
   /* ---------- Netlify contact form ---------- */
