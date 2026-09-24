@@ -1,12 +1,6 @@
-/* ============================================================
-   Kris Bank — demo app logic
-   Everything below is a CLIENT-SIDE SIMULATION. Accounts, PINs,
-   and balances are stored in this browser's localStorage only.
-   No real money moves and nothing leaves the browser. This is
-   for demo/prototype purposes, not a real banking backend.
-   ============================================================ */
-
-const API_URL = "http://127.0.0.1:8000";
+const API_URL = ["127.0.0.1", "localhost"].includes(window.location.hostname)
+  ? "http://127.0.0.1:8000"
+  : "https://kris-bank-backend.onrender.com";
 
 var KB = (function () {
   var ACCOUNTS_KEY = 'krisbank_accounts';
